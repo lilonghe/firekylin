@@ -22,7 +22,7 @@ module.exports = class extends Base {
    * @param {[type]} data [description]
    * @param {[type]} ip   [description]
    */
-  addPost(data) {
+  async addPost(data) {
     let create_time = think.datetime();
     data = Object.assign({
       type: 0,
@@ -31,7 +31,8 @@ module.exports = class extends Base {
       update_time: create_time,
       is_public: 1
     }, data);
-
+    
+    await this.model('post_log').addPostLog(data);
     return this.where({pathname: data.pathname}).thenAdd(data);
   }
 
@@ -41,6 +42,7 @@ module.exports = class extends Base {
       return Promise.reject(new Error('POST_NOT_EXIST'));
     }
     data.update_time = think.datetime();
+    await this.model('post_log').addPostLog(data);
     return this.where({id: data.id}).update(data);
   }
 

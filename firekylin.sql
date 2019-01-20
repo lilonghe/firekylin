@@ -107,6 +107,17 @@ CREATE TABLE `fk_post` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `fk_post_log`;
+
+CREATE TABLE `fk_post_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pathname` varchar(255) NOT NULL DEFAULT '' COMMENT 'URL 的 pathname',
+  `after` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `create_time` (`create_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 # Dump of table fk_post_cate
 # ------------------------------------------------------------
